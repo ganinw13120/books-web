@@ -1,4 +1,5 @@
 import '../styles/globals.css';
+import 'tailwindcss/tailwind.css'
 import type { AppProps } from 'next/app';
 import React, { Component } from 'react';
 
@@ -10,12 +11,13 @@ const store = {
   rootStore: _RootStore,
   appStore : _RootStore.appStore,
 };
-export default class MyApp extends Component <AppProps, any> {
-  render () : JSX.Element {
-    return <>
-      <Provider {...store}>
-        <this.props.Component {...this.props.pageProps} />
-      </Provider>
-    </>
-  }
+
+function MyApp({ Component, pageProps }: AppProps) {
+  return <>
+    <Provider {...store}>
+      <Component {...pageProps} />
+    </Provider>
+  </>
 }
+
+export default MyApp

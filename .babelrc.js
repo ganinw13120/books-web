@@ -9,6 +9,8 @@ module.exports = {
         root: ["./"],
         alias: {
           "@store": "./store",
+          "@styles": "./styles",
+          "@components": "./components",
         },
       },
     ],
