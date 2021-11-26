@@ -8,17 +8,31 @@ import {
     Field,
     useFormik,
 } from 'formik';
-import { ReactElement, useState } from 'react';
+import { ReactElement, useEffect, useState } from 'react';
+import { inject, observer } from 'mobx-react';
+import { AppStore } from '@store/AppStore';
+import { Book } from '@models/Book';
 
 type SearchBarProps = {
+    appStore ?: AppStore
 }
 
 type FormVal = {
     name: string
 }
-const SearchBar: React.FC<SearchBarProps> = ({ }) => {
+
+// @inject('aapStore')
+// @observer
+const SearchBar: React.FC<SearchBarProps> = ({ appStore }) => {
+    const [isLoading, setIsLoading] = useState<boolean>(false);
     const [name, setName] = useState<string>('');
+    const [books, setBooksData] = useState<Book[]>([]);
     const initialValues: FormVal = { name: '' };
+    useEffect(()=>{
+        appStore?.SearchBooks(name, (data=>{
+            setBooksData(data);
+        }))
+    }, [name]);
     return (
         <>
             <Formik
@@ -40,17 +54,18 @@ const SearchBar: React.FC<SearchBarProps> = ({ }) => {
                             name="name"
                             placeholder="Search..."
                             value={name}
-                            onChange={(values : any) => {
+                            onChange={(values: any) => {
                                 setName(values.target.value);
                             }}
                         />
                     </div>
                     <div className='absolute w-full'>
-                        {(() : ReactElement[] =>{
+                        <LoadingItem />
+                        {((): ReactElement[] => {
                             let i = 0;
-                            const itemList : ReactElement[] = [];
+                            const itemList: ReactElement[] = [];
                             while (i < name.length) {
-                                itemList.push(<SearchItem />);
+                                itemList.push(<SearchItem key={i} />);
                                 i++;
                             }
                             return itemList;
@@ -63,8 +78,15 @@ const SearchBar: React.FC<SearchBarProps> = ({ }) => {
     )
 }
 
-export default SearchBar
+export default inject('appStore')(observer(SearchBar))
 
+const LoadingItem: React.FC = () => {
+    return (<>
+        <div className={`h-16 p-3 bg-white flex`}>
+            Loading...
+        </div>
+    </>)
+}
 
 const SearchItem: React.FC = () => {
     return (<>

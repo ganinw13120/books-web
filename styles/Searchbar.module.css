@@ -1,13 +1,18 @@
-
 .autocompleteList {
-    width : 100%;
-    height : 120px;
-    padding : 10px 10px 10px 10px;
-  }
-  
-  .imageContainer {
-    position : relative;
-    height: 100%;
-    width: 100px;
-    display: flex;
-  }
+  width: 100%;
+  height: 120px;
+  padding: 10px 10px 10px 10px;
+}
+
+.imageContainer {
+  position: relative;
+  height: 100%;
+  width: 100px;
+  display: flex;
+}
+
+.loadingList {
+  width: 100%;
+  height: 120px;
+  padding: 10px 10px 10px 10px;
+}

@@ -21,6 +21,8 @@
       "@store/*": ["./store/*"],
       "@styles/*": ["./styles/*"],
       "@components/*": ["./components/*"],
+      "@repository/*" : ["./repository/*"],
+      "@models/*" : ["./models/*"],
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
