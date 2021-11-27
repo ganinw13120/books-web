@@ -19,7 +19,6 @@ type FormVal = {
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  console.log('asd')
   return {
     props: {
       bookList: []
@@ -28,7 +27,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 }
 
 const Home: NextPage<HomeProps> = ({ bookList }) => {
-  console.log(bookList)
   const initialValues: FormVal = { name: '' };
   return (
     <>

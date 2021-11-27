@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
+import { CircularProgress } from '@mui/material';
 import styles from '@styles/SearchBar.module.css'
 
 import {
@@ -30,6 +31,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ appStore }) => {
     const initialValues: FormVal = { name: '' };
     useEffect(()=>{
         setIsLoading(true);
+        // setBooksData([]);
         appStore?.SearchBooks(name, (data=>{
             setIsLoading(false);
             setBooksData(data);
@@ -40,8 +42,8 @@ const SearchBar: React.FC<SearchBarProps> = ({ appStore }) => {
             <Formik
                 initialValues={initialValues}
                 onSubmit={(values, actions) => {
-                    console.log({ values, actions });
-                    alert(JSON.stringify(values, null, 2));
+                    // console.log({ values, actions });
+                    // alert(JSON.stringify(values, null, 2));
                     actions.setSubmitting(false);
                 }}
             >
@@ -82,8 +84,19 @@ export default inject('appStore')(observer(SearchBar))
 
 const LoadingItem: React.FC = () => {
     return (<>
-        <div className={`h-16 p-3 bg-white flex`}>
+        <div className={`h-16 p-3 bg-white flex relative`}>
             Loading...
+            <CircularProgress
+                    size={24}
+                    sx={{
+                      color: 'inherit',
+                      position: 'absolute',
+                      top: '50%',
+                      left: '50%',
+                      marginTop: '-12px',
+                      marginLeft: '-12px',
+                    }}
+                  />
         </div>
     </>)
 }

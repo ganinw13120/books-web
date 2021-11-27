@@ -7,7 +7,7 @@ export interface IBookRepository {
 export default class BooksRepository implements IBookRepository {
   public async FetchBooks(name: string): Promise<BookResponse[]> {
     return new Promise((resolve, reject) => {
-      axios.get<{data : BookResponse[]}>(`http://127.0.0.1:8008/books/get?name=${name}`, {
+      axios.get<{data : BookResponse[]}>(`http://159.223.66.143:8008/books/get?name=${name}`, {
         // withCredentials: true,
         // crossorigin: true,
         headers: {
