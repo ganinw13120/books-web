@@ -24,7 +24,19 @@ export class AppStore {
 
   @action
   public async SearchBooks (name : string, cb : (data : Book[]) => void) : Promise<void> {
-    const data = await this.bookRepository.FetchBooks(name);
+    const data = await this.bookRepository.FetchBooks(name).then((res)=>{
+      const books : Book[] = [];
+      res.forEach(e=>{
+        books.push({
+          Author : e.author,
+          Name : e.full_name,
+          ImageURL : e.imageurl
+        })
+      })
+      return books;
+    }).catch((res)=>{
+      return [];
+    });
     cb?.(data);
   }
 }

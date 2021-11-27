@@ -29,7 +29,9 @@ const SearchBar: React.FC<SearchBarProps> = ({ appStore }) => {
     const [books, setBooksData] = useState<Book[]>([]);
     const initialValues: FormVal = { name: '' };
     useEffect(()=>{
+        setIsLoading(true);
         appStore?.SearchBooks(name, (data=>{
+            setIsLoading(false);
             setBooksData(data);
         }))
     }, [name]);
@@ -60,14 +62,12 @@ const SearchBar: React.FC<SearchBarProps> = ({ appStore }) => {
                         />
                     </div>
                     <div className='absolute w-full'>
-                        <LoadingItem />
+                        {isLoading && <LoadingItem />}
                         {((): ReactElement[] => {
-                            let i = 0;
                             const itemList: ReactElement[] = [];
-                            while (i < name.length) {
-                                itemList.push(<SearchItem key={i} />);
-                                i++;
-                            }
+                            books.forEach((e, k) => [
+                                itemList.push(<SearchItem name={e.Name} author={e.Author} img={e.ImageURL} key={k}/>)
+                            ])
                             return itemList;
                         })()}
                         {/* <SearchItem /> */}
@@ -88,11 +88,17 @@ const LoadingItem: React.FC = () => {
     </>)
 }
 
-const SearchItem: React.FC = () => {
+type SearchItemProps = {
+    name : string
+    author : string
+    img : string
+}
+
+const SearchItem: React.FC<SearchItemProps> = ({name, author, img}) => {
     return (<>
         <div className={`${styles.autocompleteList} bg-white flex`}>
             <div className={`${styles.imageContainer}`}>
-                <Image src='https://storage.naiin.com/system/application/bookstore/resource/product/201907/482105/1000220914_front_XXL.jpg?imgname=INTO-THE-MAGIC-SHOP-%E0%B9%80%E0%B8%A3%E0%B8%B2%E0%B8%97%E0%B8%B8%E0%B8%81%E0%B8%84%E0%B8%99%E0%B8%A5%E0%B9%89%E0%B8%A7%E0%B8%99%E0%B8%A1%E0%B8%B5%E0%B8%A3%E0%B9%89%E0%B8%B2%E0%B8%99%E0%B9%80%E0%B8%A7%E0%B8%97%E0%B8%A1%E0%B8%99%E0%B8%95%E0%B8%A3%E0%B9%8C%E0%B8%AD%E0%B8%A2%E0%B8%B9%E0%B9%88%E0%B9%83%E0%B8%99%E0%B9%83%E0%B8%88'
+                <Image src={img}
                     layout='fill'
                     objectFit='contain'
                 />
@@ -100,12 +106,12 @@ const SearchItem: React.FC = () => {
             <div className='inline-block h-full'>
                 <div className='mt-2'>
                     <Link href="/">
-                        <a className='text-xl px-4 text-black'>Atomic habits</a>
+                        <a className='text-xl px-4 text-black'>{name}</a>
                     </Link>
                 </div>
                 <div className='mt-3'>
                     <Link href="/">
-                        <a className='text-base px-4 text-black font-light'>James Clear</a>
+                        <a className='text-base px-4 text-black font-light'>{author}</a>
                     </Link>
                 </div>
             </div>
