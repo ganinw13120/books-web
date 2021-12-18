@@ -4,10 +4,14 @@ module.exports = {
   purge: ['./pages/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
   darkMode: false, // or 'media' or 'class'
   theme: {
+    fontFamily: {
+      'roboto': ['Roboto', 'sans-serif'],
+    },
     extend: {
     },
     colors : {
       red : colors.red,
+      'white-pure' : '#FFFFFF',
       white : '#F2F2F2',
       'light-gray' : '#BFBFBF',
       gray : '#8C8C8C',

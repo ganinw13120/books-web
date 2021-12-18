@@ -1,0 +1,12 @@
+.imageContainer {
+    margin : auto;
+    position: relative;
+    min-height: 100px;
+    height: 100%;
+    width: 100px;
+    display: flex;
+}
+
+.itemContainer {
+    min-height: 100px;
+}

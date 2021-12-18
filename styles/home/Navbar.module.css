@@ -1,0 +1,33 @@
+.navbar {
+    width : 100%;
+    border-bottom: 1px solid #BFBFBF;
+}
+.title {
+    font-weight: 500;
+    letter-spacing: 1px;
+    font-size : 24px;
+}
+
+.item {
+    padding-top: 4px;
+    font-weight: 300;
+    vertical-align: baseline;
+    letter-spacing: 0.5px;
+    font-size : 16px;
+    transition : all 0.1s;
+    cursor : pointer;
+}
+.item:hover {
+    text-decoration: underline;
+    color : black;
+}
+
+.category {
+    font-weight: 300;
+    font-size : 16px;
+    cursor : pointer;
+}
+.category:hover {
+    text-decoration: underline;
+    color : black;
+}
