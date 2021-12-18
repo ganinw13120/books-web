@@ -6,3 +6,10 @@
   left : 20%;
   right : 20%;
 }
+.searchbarWrapper {
+  z-index: 10;
+}
+
+.itemWrapper {
+  z-index: 0;
+}

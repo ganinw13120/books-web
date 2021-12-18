@@ -5,8 +5,15 @@
     height: 100%;
     width: 100px;
     display: flex;
+    z-index: 0;
 }
 
 .itemContainer {
+    font-family: 'Sarabun', sans-serif !important;
     min-height: 100px;
+    z-index: 0;
+}
+
+.image {
+    z-index: 0;
 }

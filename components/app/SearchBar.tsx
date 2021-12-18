@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { CircularProgress } from '@mui/material';
-import styles from '@styles/SearchBar.module.css'
+import styles from '@styles/Searchbar.module.css'
 
 import {
     Formik,
@@ -13,9 +13,12 @@ import { ReactElement, useEffect, useState } from 'react';
 import { inject, observer } from 'mobx-react';
 import { AppStore } from '@store/AppStore';
 import { Book } from '@models/Book';
+import TextField from '@mui/material/TextField';
 
 type SearchBarProps = {
-    appStore ?: AppStore
+    appStore?: AppStore
+    maxDisplay: number
+    onSelect : (name : string) => void
 }
 
 type FormVal = {
@@ -24,58 +27,44 @@ type FormVal = {
 
 // @inject('aapStore')
 // @observer
-const SearchBar: React.FC<SearchBarProps> = ({ appStore }) => {
+const SearchBar: React.FC<SearchBarProps> = ({ appStore, maxDisplay, onSelect }) => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [name, setName] = useState<string>('');
     const [books, setBooksData] = useState<Book[]>([]);
-    const initialValues: FormVal = { name: '' };
-    useEffect(()=>{
+    useEffect(() => {
         setIsLoading(true);
-        // setBooksData([]);
-        appStore?.SearchBooks(name, (data=>{
+        appStore?.SearchBooks(name, (data => {
             setIsLoading(false);
             setBooksData(data);
         }))
     }, [name]);
     return (
         <>
-            <Formik
-                initialValues={initialValues}
-                onSubmit={(values, actions) => {
-                    // console.log({ values, actions });
-                    // alert(JSON.stringify(values, null, 2));
-                    actions.setSubmitting(false);
-                }}
-            >
-                <Form>
-                    <div className='text-left'>
-                        <label htmlFor="name">Search books...</label>
-                    </div>
-                    <div>
-                        <Field
-                            className='border-b-2 border-light-gray   h-16 focus:bg-white w-full text-xl mt-3 px-4'
-                            id="name"
-                            name="name"
-                            placeholder="Search..."
-                            value={name}
-                            onChange={(values: any) => {
-                                setName(values.target.value);
-                            }}
-                        />
-                    </div>
-                    <div className='absolute w-full'>
-                        {isLoading && <LoadingItem />}
-                        {((): ReactElement[] => {
-                            const itemList: ReactElement[] = [];
-                            books.forEach((e, k) => [
-                                itemList.push(<SearchItem name={e.Name} author={e.Author} img={e.ImageURL} key={k}/>)
-                            ])
-                            return itemList;
-                        })()}
-                        {/* <SearchItem /> */}
-                    </div>
-                </Form>
-            </Formik>
+            <div className=''>
+                <div>
+                    <TextField id="outlined-basic" label="ค้นหาหนังสือ" variant="outlined" className={`w-full h-16 bg-white`}
+                        value={name}
+                        onChange={(values: any) => {
+                            setName(values.target.value);
+                        }}
+                    />
+                </div>
+                <div className=' w-full'>
+                    {isLoading && <LoadingItem />}
+                    {books.length > 0 && <>
+                        <div className='font-light mt-3'>
+                            ผลการค้นหา :
+                        </div>
+                    </>}
+                    {((): ReactElement[] => {
+                        const itemList: ReactElement[] = [];
+                        books.slice(0, maxDisplay).forEach((e, k) => [
+                            itemList.push(<SearchItem name={e.Name} author={e.Author} img={e.ImageURL} key={k} onSelect={onSelect}/>)
+                        ])
+                        return itemList;
+                    })()}
+                </div>
+            </div>
         </>
     )
 }
@@ -84,47 +73,49 @@ export default inject('appStore')(observer(SearchBar))
 
 const LoadingItem: React.FC = () => {
     return (<>
-        <div className={`h-16 p-3 bg-white flex relative`}>
+        <div className={`h-16 p-3 bg-white flex relative z-20`}>
             Loading...
             <CircularProgress
-                    size={24}
-                    sx={{
-                      color: 'inherit',
-                      position: 'absolute',
-                      top: '50%',
-                      left: '50%',
-                      marginTop: '-12px',
-                      marginLeft: '-12px',
-                    }}
-                  />
+                size={24}
+                sx={{
+                    color: 'inherit',
+                    position: 'absolute',
+                    top: '50%',
+                    left: '50%',
+                    marginTop: '-12px',
+                    marginLeft: '-12px',
+                }}
+            />
         </div>
     </>)
 }
 
 type SearchItemProps = {
-    name : string
-    author : string
-    img : string
+    name: string
+    author: string
+    img: string
+    onSelect : (name : string) => void
 }
 
-const SearchItem: React.FC<SearchItemProps> = ({name, author, img}) => {
+const SearchItem: React.FC<SearchItemProps> = ({ name, author, img, onSelect }) => {
     return (<>
-        <div className={`${styles.autocompleteList} bg-white flex`}>
-            <div className={`${styles.imageContainer}`}>
+        <div className={`${styles.autocompleteList} flex border-b z-20`} onClick={()=>{onSelect(name)}}>
+            <div className={`${styles.imageContainer} flex-none`}>
                 <Image src={img}
                     layout='fill'
                     objectFit='contain'
+                    className='z-10'
                 />
             </div>
-            <div className='inline-block h-full'>
-                <div className='mt-2'>
+            <div className='flex-none h-full clip w-3/5 md:w-full'>
+                <div className='mt-2 clip w-full'>
                     <Link href="/">
-                        <a className='text-xl px-4 text-black'>{name}</a>
+                        <p className='text-sm md:text-xl px-4 text-black truncate w-full'>{name}</p>
                     </Link>
                 </div>
-                <div className='mt-3'>
+                <div className='mt-3 clip'>
                     <Link href="/">
-                        <a className='text-base px-4 text-black font-light'>{author}</a>
+                        <a className='text-xs md:text-base px-4 text-black font-light'>{author}</a>
                     </Link>
                 </div>
             </div>

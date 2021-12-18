@@ -1,24 +1,36 @@
+import { Review } from '@models/Review';
 import styles from '@styles/home/Item.module.css';
 import Image from 'next/image'
-const Navbar: React.FC = () => {
+
+type ItemProps = {
+    data : Review
+}
+
+const Item: React.FC<ItemProps> = ({data}) => {
     return (
         <>
-            <div className={`border border-light-gray rounded-lg p-10 flex ${styles.itemContainer}`}>
+            <div className={`my-5 border border-light-gray rounded-lg p-5 md:p-10 flex text-black shadow ${styles.itemContainer}`}>
                 <div className={`${styles.imageContainer} flex-none`}>
-                    <Image src='https://storage.naiin.com/system/application/bookstore/resource/product/202106/529599/1000242074_front_XL.jpg?t=search&imgname=AS-A-MAN-THINKETH-%E0%B8%84%E0%B8%A7%E0%B8%B2%E0%B8%A1%E0%B8%84%E0%B8%B4%E0%B8%94%E0%B8%81%E0%B8%B3%E0%B8%AB%E0%B8%99%E0%B8%94%E0%B8%8A%E0%B8%B5%E0%B8%A7%E0%B8%B4%E0%B8%95%E0%B9%84%E0%B8%94%E0%B9%89-(%E0%B8%9B%E0%B8%81%E0%B9%81%E0%B8%82%E0%B9%87%E0%B8%87)'
+                    <Image src={data.book_img_url}
                         layout='fill'
+                        className={`${styles.image}`}
                         objectFit='contain'
                     />
                 </div>
-                <div className={`m-3`}>
+                <div className={`mx-3 flex-grow`}>
                     <div>
-                        <a>
-                        หนังสือชุดนี้หนังสือชุดนี้
+                        <a className={`text-base md:text-lg font-sarabun `}>
+                         {data.title}
                         </a>
                     </div>
-                    <div>
-                        <a>
-                            Description Description Description Description Description Description
+                    <div className='mt-1'>
+                        <a className={`text-gray text-xs md:text-sm`}>
+                            {data.book_name} ({data.book_author})
+                        </a>
+                    </div>
+                    <div className='mt-4'>
+                        <a className={`font-light  text-xs`}>
+                            {data.description}
                         </a>
                     </div>
                 </div>
@@ -27,4 +39,4 @@ const Navbar: React.FC = () => {
     )
 }
 
-export default Navbar
+export default Item

@@ -5,7 +5,7 @@
 
 @font-face {
   font-family: "Roboto";
-  src: url("/fonts/Roboto/Roboto-Regular.ttf");
+  src: url("/fonts/Roboto/Roboto-Thin.ttf");
   font-style: normal;
   font-weight: 300;
   font-display: swap;
@@ -20,6 +20,28 @@
 @font-face {
   font-family: "Roboto";
   src: url("/fonts/Roboto/Roboto-Bold.ttf");
+  font-style: bold;
+  font-weight: 700;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Sarabun";
+  src: url("/fonts/Sarabun/Sarabun-Thin.ttf");
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Sarabun";
+  src: url("/fonts/Sarabun/Sarabun-Regular.ttf");
+  font-style: medium;
+  font-weight: 500;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Sarabun";
+  src: url("/fonts/Sarabun/Sarabun-Bold.ttf");
   font-style: bold;
   font-weight: 700;
   font-display: swap;
