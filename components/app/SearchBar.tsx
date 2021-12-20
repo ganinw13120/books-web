@@ -99,7 +99,7 @@ type SearchItemProps = {
 
 const SearchItem: React.FC<SearchItemProps> = ({ name, author, img, onSelect }) => {
     return (<>
-        <div className={`${styles.autocompleteList} flex border-b z-20`} onClick={()=>{onSelect(name)}}>
+        <div className={`${styles.autocompleteList} cursor-pointer flex border-b z-20`} onClick={()=>{onSelect(name)}}>
             <div className={`${styles.imageContainer} flex-none`}>
                 <Image src={img}
                     layout='fill'

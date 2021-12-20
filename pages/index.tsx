@@ -24,7 +24,14 @@ type HomeProps = {
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const reviewList = await axios.get('http://127.0.0.1:8008/reviews/get', {
+  const filter = context.query
+  let queryParam = '';
+  if (filter.name ){
+    queryParam += `name=${filter.name}`;
+  }
+  if (queryParam != '') queryParam = '?' + queryParam;
+  console.log('http://127.0.0.1:8008/reviews/get' + queryParam)
+  const reviewList = await axios.get('http://127.0.0.1:8008/reviews/get/all' + queryParam, {
     headers: {
       "Content-Type": "application/json",
     }
@@ -40,7 +47,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     }
   })
   return {
-    notFound: reviewList.err,
     props: {
       reviewList: JSON.parse(JSON.stringify(reviewList.result))
     } as HomeProps
@@ -55,7 +61,8 @@ const Home: NextPage<HomeProps> = ({ reviewList }) => {
         <Navbar />
         <div className={`w-5/6 md:w-1/2 mx-auto mt-10 ${styles.searchbarWrapper}`}>
           <SearchBar maxDisplay={5} onSelect={(name)=>{
-            router.push('/?name=' + name);
+            router.push('/filter?name=' + name);
+            console.log(name)
           }}/>
         </div>
         <div className={`w-5/6 md:w-1/2 mx-auto mt-10 font-sarabun text-xl`}>

@@ -1,0 +1,27 @@
+.imageContainer {
+    margin : auto;
+    margin-left : 3px;
+    margin-right: 3px;
+    position: relative;
+    min-height: 100px;
+    height: 100%;
+    width: 100px;
+    display: flex;
+  }
+
+  .title {
+    vertical-align: baseline;
+    letter-spacing: 0.5px;
+    font-size: 24px;
+  }
+  .description {
+    vertical-align: baseline;
+    letter-spacing: 0.5px;
+    font-size: 16px;
+    text-indent: 50px;
+    line-height: 30px;
+  }
+
+  .description p {
+      margin-bottom: 10px;
+  }
