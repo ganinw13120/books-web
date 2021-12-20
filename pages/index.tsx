@@ -30,8 +30,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     queryParam += `name=${filter.name}`;
   }
   if (queryParam != '') queryParam = '?' + queryParam;
-  console.log('http://127.0.0.1:8008/reviews/get' + queryParam)
-  const reviewList = await axios.get('http://127.0.0.1:8008/reviews/get/all' + queryParam, {
+  const reviewList = await axios.get('https://books.api.ganinw.dev/reviews/get/all' + queryParam, {
     headers: {
       "Content-Type": "application/json",
     }

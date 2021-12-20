@@ -18,7 +18,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     const filter = context.query
     console.log(context.query)
     if (!context.query.id) return { notFound: true };
-    const reviewList = await axios.get('http://127.0.0.1:8008/reviews/get/' + context.query.id, {
+    const reviewList = await axios.get('https://books.api.ganinw.dev/reviews/get/' + context.query.id, {
         headers: {
             "Content-Type": "application/json",
         }
