@@ -16,7 +16,6 @@ type ReviewDetailProps = {
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
     const filter = context.query
-    console.log(context.query)
     if (!context.query.id) return { notFound: true };
     const reviewList = await axios.get('https://books.api.ganinw.dev/reviews/get/' + context.query.id, {
         headers: {
