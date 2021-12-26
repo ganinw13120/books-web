@@ -2,14 +2,8 @@ import { GetServerSideProps } from 'next'
 import type { NextPage } from 'next'
 import { useRouter } from 'next/router'
 import styles from '@styles/home/Home.module.css'
-
-import SearchBar from '@components/app/SearchBar';
-
-import {
-  Formik,
-  Form,
-  Field,
-} from 'formik';
+// import SearchBar from '@components/app/SearchBar';
+import Head from 'next/head'
 
 import Navbar from '@components/home/Navbar';
 import Item from '@components/home/Item';
@@ -56,6 +50,10 @@ const Home: NextPage<HomeProps> = ({ reviewList }) => {
   const router = useRouter()
   return (
     <>
+      <Head>
+        <title>My books review</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
       <div className='w-screen'>
         <Navbar />
         {/* <div className={`w-5/6 md:w-1/2 mx-auto mt-10 ${styles.searchbarWrapper}`}>

@@ -1,6 +1,5 @@
 import { GetServerSideProps } from 'next'
 import type { NextPage } from 'next'
-import { useRouter } from 'next/router'
 import axios from 'axios';
 import Image from 'next/image'
 import parse from 'html-react-parser';
@@ -9,6 +8,7 @@ import { Review } from '@models/Review';
 import styles from '@styles/review-detail/Review-detail.module.css';
 
 import Navbar from '@components/home/Navbar';
+import Head from 'next/head';
 
 type ReviewDetailProps = {
     data: Review,
@@ -42,6 +42,10 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 const Home: NextPage<ReviewDetailProps> = ({ data }) => {
     return (
         <>
+            <Head>
+                <title>{data.book_name}</title>
+                <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+            </Head>
             <Navbar />
             <div className={`w-5/6 md:w-1/2 mx-auto py-10 font-sarabun`}>
                 <div className='flex w-full'>
