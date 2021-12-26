@@ -58,11 +58,11 @@ const Home: NextPage<HomeProps> = ({ reviewList }) => {
     <>
       <div className='w-screen'>
         <Navbar />
-        <div className={`w-5/6 md:w-1/2 mx-auto mt-10 ${styles.searchbarWrapper}`}>
+        {/* <div className={`w-5/6 md:w-1/2 mx-auto mt-10 ${styles.searchbarWrapper}`}>
           <SearchBar maxDisplay={5} onSelect={(name)=>{
             // router.push('/filter?name=' + name);
           }}/>
-        </div>
+        </div> */}
         <div className={`w-5/6 md:w-1/2 mx-auto mt-10 font-sarabun text-xl`}>
           รีวิวล่าสุด
         </div>
